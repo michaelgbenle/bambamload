@@ -97,7 +97,7 @@ func (sa *ServiceAdmin) InviteSupplier(req models.InviteSupplier, user *models.U
 		return "unable to invite supplier, please try again later", err
 	}
 
-	url := fmt.Sprintf("%s/register?reference=%s", os.Getenv("FRONTEND_URL"), ref)
+	url := fmt.Sprintf("%s/auth/onboarding/setup?reference=%s", os.Getenv("FRONTEND_URL"), ref)
 	body := utils.BuildSupplierInviteEmail(req.BusinessName, url, req.InvitationMessage)
 
 	err = sa.EmailService.Send(sEmail, "Invitation to Join BamBamLoad", body)
@@ -121,7 +121,7 @@ func (sa *ServiceAdmin) ResendSupplierInviteEmail(reference string) (string, err
 		return "supplier is not invited", errors.New("supplier is not invited")
 	}
 
-	url := fmt.Sprintf("%s/register?reference=%s", os.Getenv("FRONTEND_URL"), user.Reference)
+	url := fmt.Sprintf("%s/auth/onboarding/setup?reference=%s", os.Getenv("FRONTEND_URL"), user.Reference)
 	body := utils.BuildSupplierInviteEmail(user.BusinessName, url, "")
 
 	err = sa.EmailService.Send(user.Email, "Invitation to Join BamBamLoad", body)
