@@ -14,6 +14,7 @@ func BuyerRoutes(app *f.App, h *buyerHandler.Handler) {
 
 	buyer := app.Group("/api/buyer", middleware.Authenticate(enum.Buyer, h.PostgresRepository, h.RedisService))
 
+	buyer.Get("/me", h.Me)
 	buyer.Get("/product/:id", h.GetProduct)
 	buyer.Get("/products", h.GetProducts)
 

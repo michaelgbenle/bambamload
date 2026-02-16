@@ -16,6 +16,7 @@ func AdminRoutes(app *f.App, h *adminhandler.Handler) {
 
 	admin := app.Group("/api/admin", middleware.Authenticate(enum.Admin, h.PostgresRepository, h.RedisService))
 
+	admin.Get("/me", h.Me)
 	admin.Post("/invite/supplier", h.InviteSupplier)
 	admin.Post("/invite/resend", h.ResendInviteSupplierEmail)
 

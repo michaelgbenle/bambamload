@@ -14,6 +14,7 @@ func SupplierRoutes(app *f.App, h *supplierHandler.Handler) {
 
 	supplier := app.Group("/api/supplier", middleware.Authenticate(enum.Supplier, h.PostgresRepository, h.RedisService))
 
+	supplier.Get("/me", h.Me)
 	supplier.Post("/upload_kyc_docs", h.UploadKycDocuments)
 	supplier.Post("/submit_business_profile", h.SubmitBusinessProfile)
 

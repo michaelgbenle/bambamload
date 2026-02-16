@@ -23,6 +23,12 @@ func NewSupplierHandler(apiHandler *handler.Handler) *Handler {
 	}
 }
 
+func (h *Handler) Me(c *f.Ctx) error {
+	user := c.Locals("user").(*models.User)
+
+	return utils.WriteResponse(c, http.StatusOK, true, "success", user)
+}
+
 func (h *Handler) Register(c *f.Ctx) error {
 
 	var req models.SupplierRegisterRequest
